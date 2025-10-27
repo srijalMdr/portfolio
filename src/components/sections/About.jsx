@@ -53,31 +53,43 @@ function About() {
             <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all">
               <h3 className="text-xl font-bold mb-4">👨🏻‍🎓 Education</h3>
               <ul className="list-disc list-inside text-gray-300 space-y-2">
-                <li>
+                <li className="mb-4">
                   <strong>BSc.CSIT</strong> St.Xaviers College (TU)[2022-2026]
+                  <p>
+                    Relevant Coursework: Web Development, Data Structure, Could
+                    Computing, Computer Networking...
+                  </p>
                 </li>
                 <li>
-                  Relevant Coursework: Web Development, Data Structure, Could
-                  Computing, Computer Networking...
+                  <strong>+2 Science</strong> Trinity Int College
+                  (NEB)[2020-2022]
+                  <p>
+                    <strong>GPA:</strong>:3.51
+                  </p>
                 </li>
               </ul>
             </div>
             <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all">
-              <h3 className="text-xl font-bold mb-4">💼 Work Experience</h3>
+              <h3 className="text-xl font-bold mb-4">
+                👨🏻‍💻 Hackathon Experience
+              </h3>
               <div className="space-y-4 text-gray-300">
                 <div>
                   <h4 className="font-semibold">
                     {" "}
-                    Software Engineer at ABC Corp[2020-present]
+                    Code Yatra Hackathon[2nd Runner-Up]
                   </h4>
-                  <p>Developed and maintained bla bla bla</p>
+                  <p>
+                    Developed an NFC-based livestock ID and profiling system to
+                    improve Nepal’s outdated farming practices.{" "}
+                  </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold">
-                    {" "}
-                    Intern at DFG Corp[2020-2020]
-                  </h4>
-                  <p>Assisted in building bla bla bla</p>
+                  <h4 className="font-semibold"> SXC Sandbox 2.0</h4>
+                  <p>
+                    Built Aajivan, an AI-driven app helping elderly users manage
+                    medications with scanning, reminders, and caretaker alerts.
+                  </p>
                 </div>
               </div>
             </div>
