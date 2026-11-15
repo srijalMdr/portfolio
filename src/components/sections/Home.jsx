@@ -12,7 +12,7 @@ function Home() {
             Hi, I'm Srijal Manandhar
           </h1>
           <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">
-            Hi, I'm a frontend developer who loves to create exciting projects
+            Hi, I'm a full stack developer who loves to create exciting projects
             and learn new concepts form them.
           </p>
           <div className="flex justify-center space-x-4">

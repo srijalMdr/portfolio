@@ -1,8 +1,23 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 
 function About() {
-  const frontendSkills = ["react", "vue", "typeScript", "tailwindcss"];
-  const backendSkills = ["Node.js", "AWS", "MongoDB", "Supabase"];
+  const frontendSkills = [
+    "React",
+    "NextJS",
+    "JavaScript",
+    "TypeScript",
+    "TailwindCSS",
+    "React Native",
+  ];
+  const backendSkills = [
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Supabase",
+    "PostgreSQL",
+    "DrizzleORM",
+    "AWS",
+  ];
   return (
     <section
       id="about"
@@ -15,8 +30,8 @@ function About() {
           </h2>
           <div className="rounded-xl p-8 border border-white/10 hover:-translate-y-1 transition-all">
             <p className="text-gray-300 mb-6">
-              Passionate new frontend developer with experience in building real
-              life self projects.
+              Passionate new full stack developer with experience in building
+              real life self projects.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="rounded-xl p-6 hover:translate-y-1 transition-all">
