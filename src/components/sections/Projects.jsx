@@ -1,226 +1,177 @@
+import { useEffect, useRef, useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
 
+const projects = [
+  {
+    title: "FullStack E-commerce",
+    description:
+      "Full-stack store with product browsing, cart and order workflows on a Node.js + PostgreSQL backend.",
+    tech: ["Next.js", "Node.js", "Express", "PostgreSQL", "Drizzle"],
+    link: "https://srijalecommerce.netlify.app/",
+  },
+  {
+    title: "Fast React Pizza Co",
+    description:
+      "Pizza ordering app with dynamic routing and global state for smooth browsing and checkout.",
+    tech: ["React", "React Router", "Redux", "Tailwind"],
+    link: "https://srijalfastreactpizza.netlify.app/",
+  },
+  {
+    title: "Battle Pokemon",
+    description:
+      "Pokémon battle app with type-based search, real-time battles and battle history tracking.",
+    tech: ["React", "React Router", "React Query", "Tailwind"],
+    link: "https://srijalpokemon.netlify.app/",
+  },
+  {
+    title: "The Wild Oasis",
+    description:
+      "Hotel management app for bookings, check-ins, cabins and real-time sales reports.",
+    tech: ["React", "React Query", "Styled Components", "Supabase"],
+    link: "https://srijalwildoasis.netlify.app",
+  },
+  {
+    title: "World Wise",
+    description:
+      "Interactive map to record, explore and visualize the places you've traveled.",
+    tech: ["React", "Context API"],
+    link: "https://srijalworldwise.netlify.app/",
+  },
+  {
+    title: "Weather App",
+    description:
+      "Search any city and explore detailed hourly forecasts for the coming days.",
+    tech: ["React", "React Query", "Tailwind"],
+    link: "https://srijalweather.netlify.app/",
+  },
+  {
+    title: "Mapty",
+    description:
+      "Log running and cycling workouts on a map, with persistent markers for past activities.",
+    tech: ["JavaScript", "Leaflet"],
+    link: "https://srijalmapty.netlify.app/",
+  },
+];
+
+const cardColors = ["bg-[#d1e030]", "bg-[#9eef80]", "bg-[#fbd535]"];
+
 function Projects() {
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const onScroll = () => {
+      const pad = parseFloat(getComputedStyle(track).paddingLeft);
+      // At the far right end, the last cards can't reach the left edge.
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 2) {
+        setActive(track.children.length - 1);
+        return;
+      }
+      let closest = 0;
+      let best = Infinity;
+      Array.from(track.children).forEach((card, i) => {
+        const d = Math.abs(card.offsetLeft - pad - track.scrollLeft);
+        if (d < best) {
+          best = d;
+          closest = i;
+        }
+      });
+      setActive(closest);
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => track.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (i) => {
+    const track = trackRef.current;
+    const card = track?.children[i];
+    if (card) {
+      const pad = parseFloat(getComputedStyle(track).paddingLeft);
+      track.scrollTo({
+        left: card.offsetLeft - pad,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section
       id="projects"
-      className="min-h-screen flex items-center justify-center py-20"
+      className="min-h-[80vh] flex flex-col justify-center py-16 bg-[#fcf4e9]"
     >
       <RevealOnScroll>
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent text-center">
-            Featured Projects
-          </h2>
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">FullStack E-commerce</h3>
-              <p className="text-gray-400 mb-4">
-                Full-stack eCommerce application with a responsive web
-                interface, product browsing, cart management, and order
-                workflows, powered by a Node.js, Express, PostgreSQL and Drizzle
-                ORM backend.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {[
-                  "Node JS",
-                  "Express JS",
-                  "PostgreSQL",
-                  "DrizzleORM",
-                  "Next JS",
-                  "TypeScript",
-                  "Tailwind CSS",
-                ].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalecommerce.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
+        {/* Header */}
+        <div className="px-6 md:px-16">
+          <div className="flex items-end justify-between gap-4 pb-6 border-b-2 border-dashed border-[#c9dc8a]">
+            <div className="flex items-end gap-6">
+              <span className="font-[Space_Mono] text-xs font-bold text-[#14160d] mb-2">
+                (03)
+              </span>
+              <h2 className="font-[Oswald] font-bold uppercase leading-none text-[#14160d] text-5xl md:text-7xl">
+                Projects{" "}
+              </h2>
             </div>
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">Fast React Pizza Co</h3>
-              <p className="text-gray-400 mb-4">
-                Responsive pizza ordering web app with interactive UI, dynamic
-                routing, and state management for seamless browsing and
-                ordering.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["React", "React Router", "Redux", "Tailwind CSS"].map(
-                  (tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                    >
-                      {tech}
-                    </span>
-                  ),
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalfastreactpizza.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
+            <span className="hidden sm:block font-[Space_Mono] text-[11px] uppercase tracking-[0.15em] text-[#726f66] mb-2">
+              // Scroll sideways →
+            </span>
+          </div>
+        </div>
 
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">Battle Pokemon</h3>
-              <p className="text-gray-400 mb-4">
-                Responsive and interactive Pokémon battle web app with
-                type-based search, real-time battles, and battle history
-                tracking for an engaging user experience.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["React", "React Router", "React Query", "Tailwind CSS"].map(
-                  (tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                    >
-                      {tech}
-                    </span>
-                  ),
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalpokemon.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
+        {/* Cards */}
+        <div
+          ref={trackRef}
+          className="relative mt-12 flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-px-6 md:scroll-px-16 px-6 md:px-16 pt-4 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {projects.map((project, i) => (
+            <a
+              key={project.title}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group snap-start shrink-0 w-[85vw] sm:w-[480px] lg:w-[540px] min-h-[480px] flex flex-col p-9 rounded-2xl border-2 border-[#14160d] text-[#14160d] transition-transform duration-500 ease-out hover:-translate-y-2 ${
+                cardColors[i % cardColors.length]
+              }`}
+            >
+              <span className="font-[Space_Mono] text-[11px] tracking-[0.15em]">
+                №{String(i + 1).padStart(2, "0")}
+              </span>
 
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">The Wild-Oasis</h3>
-              <p className="text-gray-400 mb-4">
-                A hotel management web app for bookings, check-ins, cabin
-                management, and real-time sales reports with integrated database
-                operations.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["React", "React Query", "Styled Components", "Supabase"].map(
-                  (tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                    >
-                      {tech}
-                    </span>
-                  ),
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalwildoasis.netlify.app"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
+              <h3 className="mt-auto font-[Oswald] font-bold uppercase leading-[0.95] text-5xl md:text-6xl">
+                {project.title}
+              </h3>
 
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">World Wise</h3>
-              <p className="text-gray-400 mb-4">
-                An interactive web app that helps users record, explore, and
-                visualize the places they’ve traveled around the world.
+              <p className="mt-10 mb-auto max-w-sm font-[Space_Mono] text-sm leading-relaxed">
+                {project.description}
               </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["React", "Context API"].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalworldwise.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
+
+              <div className="mt-10 pt-5 border-t-2 border-dashed border-[#14160d] flex items-center justify-between gap-4 font-[Space_Mono] text-[11px] font-bold uppercase tracking-[0.15em]">
+                <span>{project.tech.join(" · ")}</span>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-base transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1"
                 >
-                  View Project
-                </a>
+                  ↗
+                </span>
               </div>
-            </div>
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">Weather App</h3>
-              <p className="text-gray-400 mb-4">
-                Responsive and visually engaging weather web app that lets users
-                search by city name and explore detailed hourly forecasts for
-                the coming days.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["React", "React Query", "Tailwind CSS"].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalweather.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all ">
-              <h3 className="text-xl font-bold mb-2">Mapty</h3>
-              <p className="text-gray-400 mb-4">
-                Interactive fitness tracking web app allowing users to log
-                running or cycling workouts on a map, with persistent markers to
-                view past activities.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["JS", "Leaflet JS", "Advanced DOM Manipulation"].map(
-                  (tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition  "
-                    >
-                      {tech}
-                    </span>
-                  ),
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://srijalmapty.netlify.app/"
-                  target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
-          </section>
+            </a>
+          ))}
+        </div>
+
+        {/* Dots */}
+        <div className="px-6 md:px-16 mt-4 flex gap-2.5">
+          {projects.map((project, i) => (
+            <button
+              key={project.title}
+              type="button"
+              aria-label={`Go to ${project.title}`}
+              onClick={() => scrollTo(i)}
+              className={`w-3 h-3 rounded-full border-2 border-[#14160d] cursor-pointer transition-colors ${
+                active === i ? "bg-[#14160d]" : "bg-transparent"
+              }`}
+            />
+          ))}
         </div>
       </RevealOnScroll>
     </section>
