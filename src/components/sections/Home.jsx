@@ -4,29 +4,42 @@ function Home() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative"
+      className="min-h-screen flex flex-col justify-end pt-[75px] pb-12 px-6 md:px-16"
     >
       <RevealOnScroll>
-        <div className="text-center z-10 px-4 ">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-blue-500 to-cyan-400  bg-clip-text text-transparent leading-right">
-            Hi, I'm Srijal Manandhar
+        <div className="w-full">
+          {/* Meta row */}
+          <div className="flex justify-between gap-4 font-[Space_Mono] text-[11px] uppercase tracking-[0.15em] text-[#726f66]">
+            <span>Srijal.dev — Fullstack</span>
+            <span>Kathmandu, Nepal</span>
+          </div>
+          <div className="mt-6 border-t-2 border-dashed border-[#c9dc8a]" />
+
+          {/* Giant name */}
+          <h1 className="mt-8 font-[Oswald] font-bold uppercase text-[#14160d] leading-[0.85] tracking-tight text-[clamp(4rem,17vw,15rem)]">
+            <span className="block">Srijal</span>
+            <span className="block text-right">Manandhar</span>
           </h1>
-          <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">
-            Hi, I'm a full stack developer who loves to create exciting projects
-            and learn new concepts form them.
-          </p>
-          <div className="flex justify-center space-x-4">
+
+          {/* Actions */}
+          <div className="mt-10 flex flex-wrap gap-4 font-[Space_Mono] text-sm font-bold uppercase tracking-[0.15em] text-[#14160d]">
             <a
               href="#projects"
-              className="bg-blue-500 text-white py-3 px-6 rounded font-medium transition relative overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-[#14160d] bg-[#0a013b] transition-transform duration-500 ease-out hover:-translate-y-2 text-white group"
             >
-              View Projects
+              View Projects{" "}
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-500 ease-out group-hover:translate-x-1.75"
+              >
+                ⟶
+              </span>
             </a>
             <a
               href="#contact"
-              className="border border-blue-500/50  text-blue-500 py-3 px-6 rounded font-medium transition-all duration-200  hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59,130,246,0.2)]  hover:bg-blue-500/10"
+              className="inline-flex items-center px-8 py-4 rounded-full border-2 border-[#14160d] transition-transform duration-500 ease-out hover:-translate-y-2"
             >
-              Contact Me{" "}
+              Contact Me
             </a>
           </div>
         </div>

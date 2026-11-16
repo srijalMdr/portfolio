@@ -68,9 +68,12 @@ function NavBar({ menuOpen, setMenuOpen }) {
 
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-3 px-7 py-3 rounded-full bg-[#0a013b] font-[Space_Mono] text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#1f1270] transition-colors"
+            className="hidden md:inline-flex items-center gap-3 px-7 py-3 rounded-full bg-[#0a013b] font-[Space_Mono] text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#1f1270] transition-colors duration-500 ease-out group"
           >
-            Say Hello <span aria-hidden="true">⟶</span>
+            Say Hello{" "}
+            <span aria-hidden="true" className="transition-transform duration-500 ease-out group-hover:translate-x-2">
+              ⟶
+            </span>
           </a>
 
           <button
