@@ -151,7 +151,7 @@ function About() {
           </RevealOnScroll>
         </div>
       </section>
-      <div className="min-h-[80vh] flex flex-col justify-center px-6 md:px-16 py-16">
+      <div className="min-h-[60vh] flex flex-col justify-center px-6 md:px-16 ">
         <RevealOnScroll>
           <SectionHeader
             index="02"

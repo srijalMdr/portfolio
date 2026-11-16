@@ -14,21 +14,27 @@ function NavBar({ menuOpen, setMenuOpen }) {
     document.body.style.overflow = menuOpen ? "hidden" : "";
   }, [menuOpen]);
 
-  // Highlight the link for whichever section is currently in view.
+  // Highlight the link for whichever section is at the middle of the screen.
+  // Sections are looked up on every scroll (not cached), so this keeps working
+  // even if a section re-mounts, e.g. after a hot reload while editing it.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px" },
-    );
-    links.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const update = () => {
+      const middle = window.innerHeight / 2;
+      for (const { id } of links) {
+        const rect = document.getElementById(id)?.getBoundingClientRect();
+        if (rect && rect.top <= middle && rect.bottom > middle) {
+          setActive(id);
+          return;
+        }
+      }
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   return (

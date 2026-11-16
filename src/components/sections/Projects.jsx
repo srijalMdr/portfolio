@@ -99,7 +99,7 @@ function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-[80vh] flex flex-col justify-center py-16 bg-[#fcf4e9]"
+      className="h-screen flex flex-col justify-center py-16 bg-[#fcf4e9]"
     >
       <RevealOnScroll>
         {/* Header */}
