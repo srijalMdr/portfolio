@@ -1,116 +1,186 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 
-function About() {
-  const frontendSkills = [
-    "React",
-    "NextJS",
-    "JavaScript",
-    "TypeScript",
-    "TailwindCSS",
-    "React Native",
-  ];
-  const backendSkills = [
-    "Node.js",
-    "Express.js",
-    "MongoDB",
-    "Supabase",
-    "PostgreSQL",
-    "DrizzleORM",
-    "AWS",
-  ];
+const stack = [
+  {
+    title: "Frontend",
+    skills: [
+      "React",
+      "NextJS",
+      "JavaScript",
+      "TypeScript",
+      "TailwindCSS",
+      "React Native",
+    ],
+  },
+  {
+    title: "Backend",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Supabase",
+      "PostgreSQL",
+      "DrizzleORM",
+      "AWS",
+    ],
+  },
+];
+
+const education = [
+  {
+    title: "BSc.CSIT",
+    place: "St. Xavier's College (TU)",
+    years: "2022–2026",
+    detail:
+      "Relevant coursework: Web Development, Data Structures, Cloud Computing, Computer Networking…",
+  },
+  {
+    title: "+2 Science",
+    place: "Trinity Int'l College (NEB)",
+    years: "2020–2022",
+    detail: "GPA: 3.51",
+  },
+];
+
+const hackathons = [
+  {
+    title: "Code Yatra Hackathon",
+    place: "2nd Runner-Up",
+    detail:
+      "Farminsight — NFC-based livestock ID and profiling system for farmers to optimize yeild.",
+  },
+  {
+    title: "SXC Sandbox 2.0",
+    detail: "Aajivan — an AI medication assistant for elderly users.",
+  },
+];
+
+function SectionHeader({ index, title, note, dark = false }) {
   return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center justify-center py-20"
+    <div
+      className={`flex items-end justify-between gap-4 pb-6 border-b-2 border-dashed ${
+        dark ? "border-[#4b3fa0]" : "border-[#c9dc8a]"
+      }`}
     >
-      <RevealOnScroll>
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent text-center ">
-            About Me
-          </h2>
-          <div className="rounded-xl p-8 border border-white/10 hover:-translate-y-1 transition-all">
-            <p className="text-gray-300 mb-6">
-              Passionate new full stack developer with experience in building
-              real life self projects.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="rounded-xl p-6 hover:translate-y-1 transition-all">
-                <h3 className="text-xl font-bold mb-4">Frontend</h3>
-                <div className="flex flex-wrap gap-2">
-                  {frontendSkills.map((tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition"
+      <div className="flex items-end gap-6">
+        <span
+          className={`font-[Space_Mono] text-xs font-bold mb-2 ${
+            dark ? "text-[#fffbf5]" : "text-[#14160d]"
+          }`}
+        >
+          ({index})
+        </span>
+        <h2
+          className={`font-[Oswald] font-bold uppercase leading-none text-5xl md:text-7xl ${
+            dark ? "text-[#fffbf5]" : "text-[#14160d]"
+          }`}
+        >
+          {title}
+        </h2>
+      </div>
+      <span
+        className={`hidden sm:block font-[Space_Mono] text-[11px] uppercase tracking-[0.15em] mb-2 ${
+          dark ? "text-[#a99fe0]" : "text-[#726f66]"
+        }`}
+      >
+        // {note}
+      </span>
+    </div>
+  );
+}
+
+function Pill({ children }) {
+  return (
+    <span className="px-4 py-2 rounded-full border-2 border-[#14160d] font-[Space_Mono] text-[11px] font-bold uppercase tracking-[0.1em] text-[#14160d]  hover:-translate-y-2 transition-transform duration-300 ease-out ">
+      {children}
+    </span>
+  );
+}
+
+function About() {
+  return (
+    <section id="about">
+      <section className="min-h-[80vh] flex items-center bg-[#1f1270]">
+        <div className="w-full px-6 md:px-16 py-16">
+          <RevealOnScroll>
+            <SectionHeader
+              dark
+              index="01"
+              title="Background"
+              note="Education & hackathons"
+            />
+            <div className="grid md:grid-cols-2 gap-x-16">
+              {[
+                { heading: "Education", items: education },
+                { heading: "Hackathons", items: hackathons },
+              ].map(({ heading, items }) => (
+                <div key={heading}>
+                  <h3 className="pt-10 font-[Oswald] font-bold uppercase text-3xl text-white">
+                    {heading}
+                  </h3>
+                  {items.map((item, j) => (
+                    <div
+                      key={item.title}
+                      className={`py-6 ${
+                        j > 0 ? "border-t-2 border-dashed border-[#4b3fa0]" : ""
+                      }`}
                     >
-                      {tech}
-                    </span>
+                      <div className="flex flex-wrap items-baseline justify-between gap-2">
+                        <h4 className="font-[Space_Grotesk] text-lg font-bold text-[#fffbf5]">
+                          {item.title}
+                        </h4>
+                        {item.years && (
+                          <span className="font-[Space_Mono] text-[11px] uppercase tracking-[0.15em] text-[#a99fe0]">
+                            {item.years}
+                          </span>
+                        )}
+                      </div>
+                      {item.place && (
+                        <p className="font-[Space_Mono] text-[11px] uppercase tracking-[0.15em] text-[#a99fe0] mt-1">
+                          {item.place}
+                        </p>
+                      )}
+                      <p className="font-[Space_Mono] text-sm leading-relaxed text-[#ddd8f5] mt-3">
+                        {item.detail}
+                      </p>
+                    </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="rounded-xl p-6 hover:translate-y-1 transition-all">
-                <h3 className="text-xl font-bold mb-4">Backend</h3>
-                <div className="flex flex-wrap gap-2">
-                  {backendSkills.map((tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all">
-              <h3 className="text-xl font-bold mb-4">👨🏻‍🎓 Education</h3>
-              <ul className="list-disc list-inside text-gray-300 space-y-2">
-                <li className="mb-4">
-                  <strong>BSc.CSIT</strong> St.Xaviers College (TU)[2022-2026]
-                  <p>
-                    Relevant Coursework: Web Development, Data Structure, Could
-                    Computing, Computer Networking...
-                  </p>
-                </li>
-                <li>
-                  <strong>+2 Science</strong> Trinity Int College
-                  (NEB)[2020-2022]
-                  <p>
-                    <strong>GPA:</strong>:3.51
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all">
-              <h3 className="text-xl font-bold mb-4">
-                👨🏻‍💻 Hackathon Experience
-              </h3>
-              <div className="space-y-4 text-gray-300">
-                <div>
-                  <h4 className="font-semibold">
-                    {" "}
-                    Code Yatra Hackathon[2nd Runner-Up]
-                  </h4>
-                  <p>
-                    Developed an NFC-based livestock ID and profiling system to
-                    improve Nepal’s outdated farming practices.{" "}
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold"> SXC Sandbox 2.0</h4>
-                  <p>
-                    Built Aajivan, an AI-driven app helping elderly users manage
-                    medications with scanning, reminders, and caretaker alerts.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </RevealOnScroll>
         </div>
-      </RevealOnScroll>
+      </section>
+      <div className="min-h-[60vh] flex flex-col justify-center px-6 md:px-16 ">
+        <RevealOnScroll>
+          <SectionHeader
+            index="02"
+            title="What I work with"
+            note="Languages & tools"
+          />
+
+          {stack.map(({ title, skills }, i) => (
+            <div
+              key={title}
+              className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 py-10 border-b-2 border-dashed border-[#c9dc8a]"
+            >
+              <div className="flex items-center gap-8 md:gap-14 md:pl-4">
+                <span className="font-[Oswald] font-bold text-4xl text-[#bdb8ae]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-[Oswald] font-bold uppercase leading-none text-[#14160d] text-5xl md:text-6xl">
+                  {title}
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-2.5 lg:justify-end">
+                {skills.map((skill) => (
+                  <Pill key={skill}>{skill}</Pill>
+                ))}
+              </div>
+            </div>
+          ))}
+        </RevealOnScroll>
+      </div>
     </section>
   );
 }
